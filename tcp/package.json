@@ -1,0 +1,15 @@
+{
+  "name": "tcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:all": "concurrently \"cd producer && pnpm start:dev\" \"cd consumer_1 && pnpm start:dev\" \"cd consumer_2 && pnpm start:dev\" \"cd consumer_3 && pnpm start:dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
