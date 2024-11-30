@@ -9,12 +9,14 @@ import { CONSUMER_SERVICE } from './app.constants';
     ClientsModule.register([
       {
         name: CONSUMER_SERVICE,
-        transport: Transport.RMQ,
+        transport: Transport.KAFKA,
         options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'messages',
-          queueOptions: {
-            durable: true,
+          client: {
+            clientId: 'consumer',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'consumer-group',
           },
         },
       },

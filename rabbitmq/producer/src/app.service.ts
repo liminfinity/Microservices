@@ -1,22 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientRMQ } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { CONSUMER_PATTERNS, RABBITMQ_SERVICE } from './app.constants';
+import { CONSUMER_PATTERNS, CONSUMER_SERVICE } from './app.constants';
 import { HelloDto } from './app.dto';
 
 @Injectable()
 export class AppService {
   constructor(
-    @Inject(RABBITMQ_SERVICE) private readonly rabbitMq: ClientProxy,
+    @Inject(CONSUMER_SERVICE) private readonly consumerService: ClientRMQ,
   ) {}
 
   async getHello(): Promise<string> {
     const message: HelloDto = {
       text: 'Sending from producer',
     };
-
     return await lastValueFrom(
-      this.rabbitMq.emit(CONSUMER_PATTERNS.get('hello'), message),
+      this.consumerService.emit(CONSUMER_PATTERNS.get('hello'), message),
     );
   }
 }
